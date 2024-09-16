@@ -1,0 +1,25 @@
+<div class="forum-page">
+    <div class="new-post">
+      <form [formGroup]="postForm" (ngSubmit)="createPost()">
+        <div class="new-post-container">
+          <h2>Create a New Post</h2>
+          <div class="new-post-title">
+            <input type="text" formControlName="title" placeholder="Post title" />
+          </div>
+
+          <!-- Quill Editor for post content -->
+          <quill-editor formControlName="content"></quill-editor>
+          <button type="submit" >Submit Post</button>
+          
+        </div>
+      </form>
+    </div>
+  
+    <div class="posts">
+      <app-post
+        *ngFor="let post of posts"
+        [post]="post"
+        
+      ></app-post>
+    </div>
+  </div>

@@ -1,0 +1,26 @@
+.forum-page {
+    display: flex;
+    gap: 20px;    
+    .new-post {
+        border: 1px solid;
+        height: fit-content;
+        position: sticky;
+        top: 0;
+        .new-post-container {
+            margin: 10%;
+            quill-editor {
+                height: 100px;
+            }
+            button {
+                width: 100%;
+                padding: 10px;
+            }
+            .new-post-title {
+                input {
+                    width: -webkit-fill-available;
+                    padding: 8px;
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,20 @@
+<div class="post">
+  <div class="border">
+    <h3>Post Title: {{ post.title }}</h3>
+    <div>Author: {{post.userName}}</div>
+    <div [innerHTML]="post.content"></div> <!-- Render post content as HTML -->
+  </div>
+
+  <button *ngIf="post.comments && post.comments.length > 0" (click)="toogleShowComments()">{{isShowComments ? 'Close Comments' : 'Open Comments'}}</button>
+  <div *ngIf="isShowComments" class="comments border" [ngClass]="{'border': post.comments.length > 0 }">
+    <app-comment *ngFor="let comment of post.comments" [comment]="comment"></app-comment>
+  </div> 
+  
+  <div class="new-comment border">
+    <h3>Add new comment</h3>
+    <form [formGroup]="commentForm" (ngSubmit)="submitComment()">
+      <quill-editor formControlName="content"></quill-editor>
+      <button type="submit" [disabled]="commentForm.invalid">Submit Comment</button>
+    </form>
+  </div>    
+</div>

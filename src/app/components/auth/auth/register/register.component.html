@@ -1,0 +1,36 @@
+<h2>Sign up</h2>
+<div>
+    <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+        <div class="container">   
+            <div>
+                <input type="email" formControlName="email" placeholder="Email">
+                <div>
+                    @if (registerForm.get('email')?.invalid && registerForm.get('email')?.touched) {
+                        <small>Email is required and must be valid</small>
+                    }
+                </div>
+            </div>
+
+            <div>
+                <input type="text" formControlName="userName" placeholder="User Name">
+                <div>
+                    @if (registerForm.get('userName')?.invalid && registerForm.get('userName')?.touched) {
+                        <small>User Name is required</small>
+                    }
+                </div>
+            </div>
+    
+            <div>
+                <input type="password" formControlName="password" placeholder="Password">
+                <div>
+                    @if (registerForm.get('password')?.invalid && registerForm.get('password')?.touched) {
+                        <small>Password is required</small>
+                    }
+                </div>
+            </div>
+        </div>        
+        <div>{{errorResponse}}</div>
+        <button type="submit" [disabled]="registerForm.invalid">Sign up</button>
+    </form>
+</div>
+

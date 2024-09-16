@@ -1,1 +1,16 @@
 /* You can add global styles to this file, and also import other style files */
+.container {
+    display: flex; 
+    flex-direction: column;
+    gap: 10px;
+}
+
+button {
+    background-color: #a435f0;
+    color: white;
+    cursor: pointer;
+}
+
+a {
+    cursor: pointer;
+}
