@@ -6,7 +6,6 @@ import { QuillModule } from 'ngx-quill';
 import { PostComponent } from './post/post.component';
 import { CommonModule } from '@angular/common';
 import { SignalRService } from '../../services/signalr.service';
-import { tap } from 'rxjs';
 
 @Component({
   selector: 'app-forum',
@@ -38,6 +37,10 @@ export class ForumComponent implements OnInit {
       if (comment) {
         const post = this.posts.find(p => p.id === comment.postId);
         if (post) {
+          if (!post.comments) {
+            post.comments = [];
+          }
+
           post.comments.push(comment);
         }
       }
@@ -68,11 +71,7 @@ export class ForumComponent implements OnInit {
         comments: []
       }
 
-      this.postService.createPost(newPost).pipe(
-        tap((createdPost: Post) => {          
-          this.signalRService.sendPost(createdPost); // Notify SignalR
-        })
-      )
+      this.postService.createPost(newPost)
       .subscribe(
         () => {
           this.postForm.reset();

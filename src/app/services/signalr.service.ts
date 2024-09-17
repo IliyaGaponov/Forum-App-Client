@@ -40,12 +40,4 @@ export class SignalRService {
   public stopConnection(): void {
     this.hubConnection.stop().then(() => console.log('SignalR connection stopped.'));
   }
-
-  public sendPost(post: Post): void {
-    this.hubConnection.invoke('SendPost', post).catch((err) => console.error(err));
-  }
-
-  public sendComment(comment: Comment): void {
-    this.hubConnection.invoke('SendComment', comment).catch((err) => console.error(err));
-  }
 }

@@ -6,8 +6,6 @@ import { QuillModule } from 'ngx-quill';
 import { CommentComponent } from '../comment/comment.component';
 import { CommonModule } from '@angular/common';
 import { Comment } from './../../../models/comment.model';
-import { tap } from 'rxjs';
-import { SignalRService } from '../../../services/signalr.service';
 
 @Component({
   selector: 'app-post',
@@ -18,15 +16,13 @@ import { SignalRService } from '../../../services/signalr.service';
 })
 export class PostComponent implements OnInit {
   @Input() post!: Post;
-  @Output() onCommentSubmit = new EventEmitter<string>();
   commentForm!: FormGroup;
 
   isShowComments: boolean = false;
 
   constructor(
     private formBuilder: FormBuilder, 
-    private commentService: CommentService, 
-    private signalRService: SignalRService
+    private commentService: CommentService
   ) { }
 
   ngOnInit(): void {
@@ -45,13 +41,7 @@ export class PostComponent implements OnInit {
         createdAt: new Date()
       }
       this.commentService.createComment(newComment)
-      .pipe(
-        tap((createdComment: Comment) => { 
-          this.commentForm.reset();         
-          this.signalRService.sendComment(createdComment); // Notify SignalR
-        })
-      )
-      .subscribe();
+      .subscribe(() => this.commentForm.reset());
     }
   }
 

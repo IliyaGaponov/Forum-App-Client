@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { Observable } from 'rxjs';
 import { ApiPaths, environment } from '../environments/environment';
 import { HttpClient } from '@angular/common/http';
 import { LoginRequest } from '../models/auth/login.model';
@@ -10,7 +10,6 @@ import { RegisterRequest } from '../models/auth/register.model';
 })
 export class AuthService {  
   private baseUrl = environment.apiUrl;
-  //private loggedIn = new BehaviorSubject<boolean>(false);
   
   constructor(private httpClient: HttpClient) { }
 
@@ -22,13 +21,8 @@ export class AuthService {
     return this.httpClient.post(`${this.baseUrl}${ApiPaths.Login}`, loginRequest);
   }
 
-  // isLoggedIn(): Observable<boolean> {
-  //   return this.loggedIn.asObservable();
-  // }
-
   setToken(token: string): void {
     localStorage.setItem('token', token);
-    //this.loggedIn.next(true);
   }
 
   getToken(): string | null {
